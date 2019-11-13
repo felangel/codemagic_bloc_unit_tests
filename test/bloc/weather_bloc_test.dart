@@ -17,11 +17,10 @@ void main() {
     });
 
     test('throws AssertionError if WeatherRepository is null', () {
-      try {
-        WeatherBloc(weatherRepository: null);
-      } catch (error) {
-        expect(error, isAssertionError);
-      }
+      expect(
+        () => WeatherBloc(weatherRepository: null),
+        throwsA(isAssertionError),
+      );
     });
 
     group('WeatherRequested', () {
