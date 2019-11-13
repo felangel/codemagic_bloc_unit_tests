@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov.info - bloc/weather_bloc.dart</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">bloc</a> - weather_bloc.dart<span style="font-size: 80%;"> (source / <a href="weather_bloc.dart.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2019-11-12 21:51:36</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : import 'dart:async';</a>
+<span class="lineNum">       2 </span>            : import 'package:bloc/bloc.dart';
+<span class="lineNum">       3 </span>            : import 'package:meta/meta.dart';
+<span class="lineNum">       4 </span>            : import 'package:weather_repository/weather_repository.dart';
+<span class="lineNum">       5 </span>            : import './bloc.dart';
+<span class="lineNum">       6 </span>            : 
+<span class="lineNum">       7 </span>            : class WeatherBloc extends Bloc&lt;WeatherEvent, WeatherState&gt; {
+<span class="lineNum">       8 </span>            :   final WeatherRepository _weatherRepository;
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span><span class="lineCov">          1 :   WeatherBloc({@required WeatherRepository weatherRepository})</span>
+<span class="lineNum">      11 </span><span class="lineCov">          1 :       : assert(weatherRepository != null),</span>
+<span class="lineNum">      12 </span>            :         _weatherRepository = weatherRepository;
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span><span class="lineCov">          1 :   @override</span>
+<span class="lineNum">      15 </span><span class="lineCov">          1 :   WeatherState get initialState =&gt; WeatherInitial();</span>
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            :   @override
+<span class="lineNum">      18 </span><span class="lineCov">          1 :   Stream&lt;WeatherState&gt; mapEventToState(</span>
+<span class="lineNum">      19 </span>            :     WeatherEvent event,
+<span class="lineNum">      20 </span>            :   ) async* {
+<span class="lineNum">      21 </span><span class="lineCov">          1 :     if (event is WeatherRequested) {</span>
+<span class="lineNum">      22 </span><span class="lineCov">          2 :       yield* _mapWeatherRequestedToState(event);</span>
+<span class="lineNum">      23 </span>            :     }
+<span class="lineNum">      24 </span>            :   }
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span><span class="lineCov">          1 :   Stream&lt;WeatherState&gt; _mapWeatherRequestedToState(</span>
+<span class="lineNum">      27 </span>            :     WeatherRequested event,
+<span class="lineNum">      28 </span>            :   ) async* {
+<span class="lineNum">      29 </span><span class="lineCov">          2 :     yield WeatherLoadInProgress();</span>
+<span class="lineNum">      30 </span>            :     try {
+<span class="lineNum">      31 </span><span class="lineCov">          3 :       final weather = await _weatherRepository.getWeather(</span>
+<span class="lineNum">      32 </span><span class="lineCov">          1 :         city: event.city,</span>
+<span class="lineNum">      33 </span>            :       );
+<span class="lineNum">      34 </span><span class="lineCov">          2 :       yield WeatherLoadSuccess(weather: weather);</span>
+<span class="lineNum">      35 </span>            :     } catch (_) {
+<span class="lineNum">      36 </span><span class="lineCov">          2 :       yield WeatherLoadFailure();</span>
+<span class="lineNum">      37 </span>            :     }
+<span class="lineNum">      38 </span>            :   }
+<span class="lineNum">      39 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.13</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
