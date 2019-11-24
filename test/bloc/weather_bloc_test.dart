@@ -46,7 +46,7 @@ void main() {
               temperature: 10,
               condition: Condition.cloudy,
             ),
-          )
+          ),
         ],
       );
 
